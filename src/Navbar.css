@@ -18,11 +18,11 @@ a{
 }
 .header li{
     float: left;
-    /* padding: 20px 30px; */
+    
 }
 
 .header ul a{
-    /* border-right: 1px solid red; */
+    
     display: block;
     padding: 20px 30px;
     text-decoration: none;
@@ -39,9 +39,7 @@ a{
 }
 
 .header .menu{
-    clear: none;
-    /* max-height: 0; */
-    /* transition: max-height .2s ease-out; */
+    clear: none;   
     float: right;    
 }
 .header .menu-btn{

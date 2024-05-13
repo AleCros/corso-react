@@ -12,8 +12,8 @@ function Navbar(){
         <ul className="menu">
             <li><Link to={'/attivita'}>Attività</Link></li>
             <li><Link to={'/progetti'} >Progetti</Link></li>
-            <li><a >shop</a></li>
-            <li><a >concacts</a></li>
+            <li><a ></a></li>
+            <li><a ></a></li>
         </ul>
     </header>    
     )

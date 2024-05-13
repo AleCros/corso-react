@@ -38,16 +38,7 @@ function ListAtt() {
                     </tr>
                 </thead>
                 <tbody>
-                    {listAtt.map((att,index)=>(
-                        // <Link key={index} to={`/attivita/${att._id}`} style={{ display: 'block', width: '100%', textDecoration: 'none', color: 'inherit' }}>  
-                        //     <tr>
-                        //     <td>{att.tipoAtt}</td>
-                        //     <td>{att.nomeClie}</td>
-                        //     <td>{att.progetti.length > 0 ? att.progetti[0].nomePro : '' }</td>
-                        //     <td>{att.dataInAtt}</td>
-                        //     <td>8</td>
-                        //     </tr>
-                        // </Link>
+                    {listAtt.map((att,index)=>(                        
                         <tr key={index}>
                         <td><Link className='row-link' to={`/attivita/${att._id}`}></Link></td>
                         <td>{att.tipoAtt}</td>

@@ -5,7 +5,7 @@
     box-sizing:border-box;
 }
 
-.navbar {
+/* .navbar {
     overflow: hidden;
     margin:0 auto;
     width: 90%;
@@ -24,7 +24,7 @@
 }
 .navbar a:hover{
     background-color: #181818;
-}
+} */
 
 fieldset{
     padding: 30px 40px;

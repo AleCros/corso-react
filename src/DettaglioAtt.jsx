@@ -33,11 +33,8 @@ function DettaglioAtt(){
        const [formErrors,setFormErrors] = useState({
          tipoAtt: '',
          linea: '',    
-         dataInAtt: ''    
-        
-       })
-
-        
+         dataInAtt: ''  
+        })        
     
       const handleOnChange = (e)=>{
         const {name, value} = e.target;
@@ -50,15 +47,16 @@ function DettaglioAtt(){
       const handleOnSubmit = async (e)=>{
         e.preventDefault();
         let errors = {};
+        let datoMancante = 'inserire dato mancante';
     
         if (!attForm.tipoAtt.trim()) {
-          errors.tipoAtt = 'Tipo Attività Mancante'
+          errors.tipoAtt = datoMancante
         }
         if (!attForm.linea.trim()) {
-          errors.linea = 'Linea Mancante'
+          errors.linea = datoMancante
         }
         if (!attForm.dataInizio) {
-          errors.dataInizio = 'inserire la data di inizio attività'
+          errors.dataInizio = datoMancante
         }
     
         setFormErrors(errors);
@@ -83,18 +81,12 @@ function DettaglioAtt(){
             throw new Error('errore nel caricamento');       
           }
           result = await result.json();
-          console.log(result);
-          alert('caricato');      
+          console.log(result);               
           } catch (error) {
-            console.error(error);
-            alert('errore nella cach')
+            console.error(error);            
           }
     
-        } else{
-          //  Object.keys(errors).forEach(key=>{
-          //    alert(errors[key]);
-          //  });
-         }   
+        } 
          
       }
       return (
@@ -111,7 +103,7 @@ function DettaglioAtt(){
                             name = "tipoAtt"                         
                             value={attForm.tipoAtt} 
                             onChange={handleOnChange}
-                            placeholder={formErrors.tipoAtt || 'Aggiungi Attività'}></input>
+                            placeholder={formErrors.tipoAtt || ''}></input>
                             <label htmlFor="tipoAtt"> Tipo Attività</label>
                         </div>
                         <div className="input-group">
@@ -120,7 +112,7 @@ function DettaglioAtt(){
                             name = "linea"                         
                             value={attForm.linea} 
                             onChange={handleOnChange}
-                            placeholder={formErrors.linea || 'Aggiungi Linea'}></input>
+                            placeholder={formErrors.linea || ''}></input>
                             <label htmlFor="linea">Linea</label>
                         </div>
                     </div>
@@ -135,7 +127,7 @@ function DettaglioAtt(){
                             name = "dataInizio"                         
                             value={attForm.dataInAtt} 
                             onChange={handleOnChange}
-                            placeholder={formErrors.dataInAtt || 'inserisci data di inizio'}></input>
+                            placeholder={formErrors.dataInAtt || ''}></input>
                             <label htmlFor="dataInizio">Data Inizio Attività</label>
                         </div>
                     </div>                    

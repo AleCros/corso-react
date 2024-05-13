@@ -67,15 +67,10 @@ function App() {
       console.log(result);
       alert('caricato');      
       } catch (error) {
-        console.error(error);
-        alert('errore nella cach')
+        console.error(error);        
       }
 
-    } else{
-      //  Object.keys(errors).forEach(key=>{
-      //    alert(errors[key]);
-      //  });
-     }   
+    }  
      
   }
   return (
