@@ -8,7 +8,7 @@ function DettaglioAtt(){
 
     useEffect(()=>{
         fetchData();
-    },[]);
+    },[id]);
 
     const fetchData = async ()=>{
         try {
@@ -44,7 +44,7 @@ function DettaglioAtt(){
         });
       };  
       
-      const handleOnSubmit = async (e)=>{
+      const updateAttivita = async (e)=>{
         e.preventDefault();
         let errors = {};
         let datoMancante = 'inserire dato mancante';
@@ -55,23 +55,23 @@ function DettaglioAtt(){
         if (!attForm.linea.trim()) {
           errors.linea = datoMancante
         }
-        if (!attForm.dataInizio) {
-          errors.dataInizio = datoMancante
+        if (!attForm.dataInAtt) {
+          errors.dataInAtt = datoMancante
         }
     
-        setFormErrors(errors);
+        setFormErrors(errors);       
     
         if(Object.keys(errors).length ===0){
           let result
           try {
-            result = await fetch('http://localhost:3000/attivita/',{
-            method: "POST",
+            result = await fetch(`http://localhost:3000/attivita/${id}`,{
+            method: "PATCH",
             body :JSON.stringify({
             tipoAtt: attForm.tipoAtt,
             linea : attForm.linea,
-            nomeClie: attForm.cliente,
-            dataInAtt: attForm.dataInizio,
-            noteAtt : attForm.note        
+            nomeClie: attForm.nomeClie,
+            dataInAtt: attForm.dataInAtt,
+            noteAtt : attForm.noteAtt        
           }),
           headers : {
             'Content-Type':'application/json'
@@ -89,6 +89,14 @@ function DettaglioAtt(){
         } 
          
       }
+      const addOre = async (e)=>{
+        // TODO: creare funzione aggiungi ore ad Attività
+      }
+      const closeAtt = async (e)=>{
+        // TODO: crare funzione per chiudere l'attività
+      }
+
+
       return (
         <>
           <Navbar></Navbar>
@@ -103,7 +111,8 @@ function DettaglioAtt(){
                             name = "tipoAtt"                         
                             value={attForm.tipoAtt} 
                             onChange={handleOnChange}
-                            placeholder={formErrors.tipoAtt || ''}></input>
+                            placeholder={formErrors.tipoAtt || ''}
+                            ></input>
                             <label htmlFor="tipoAtt"> Tipo Attività</label>
                         </div>
                         <div className="input-group">
@@ -112,20 +121,21 @@ function DettaglioAtt(){
                             name = "linea"                         
                             value={attForm.linea} 
                             onChange={handleOnChange}
-                            placeholder={formErrors.linea || ''}></input>
+                            placeholder={formErrors.linea || ''}
+                            ></input>
                             <label htmlFor="linea">Linea</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-group">
-                            <input type="text" name = "cliente" value={attForm.nomeClie} onChange={handleOnChange}></input>
+                            <input type="text" name = "nomeClie" value={attForm.nomeClie} onChange={handleOnChange}></input>
                             <label htmlFor="cliente">Cliente</label>
                         </div>
                         <div className="input-group">
                             <input 
                             type="date" 
-                            name = "dataInizio"                         
-                            value={attForm.dataInAtt} 
+                            name = "dataInAtt"                         
+                            value={attForm.dataInAtt.split('T')[0]} 
                             onChange={handleOnChange}
                             placeholder={formErrors.dataInAtt || ''}></input>
                             <label htmlFor="dataInizio">Data Inizio Attività</label>
@@ -136,10 +146,20 @@ function DettaglioAtt(){
                         <label htmlFor="progetto">Progetto</label>
                     </div> */}
                     <div className="input-group">
-                        <textarea name ="note" rows="8" value={attForm.noteAtt} onChange={handleOnChange}></textarea>
+                        <textarea name ="noteAtt" rows="8" value={attForm.noteAtt} onChange={handleOnChange}></textarea>
                         <label htmlFor="note">Note</label>
-                    </div>
-                    <button type='submit' className="btn-add" onClick={handleOnSubmit}>SUBMIT</button>
+                    </div>                    
+                    <div className="row">
+                        <div className="btn-group">
+                        <button className="btn-add" onClick={updateAttivita}>MODIFICA ATTIVITA'</button>
+                        </div>
+                        <div className="btn-group">
+                        <button className="btn-add" onClick={addOre}>AGGIUNGI ORE</button>
+                        </div>
+                        <div className="btn-group">
+                        <button className="btn-add" onClick={closeAtt}>CHIUDI ATTIVITA'</button>
+                        </div>
+                    </div>       
                 </fieldset>            
             </form>
         </div>

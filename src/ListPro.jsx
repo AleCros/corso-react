@@ -1,15 +1,20 @@
 import './table.css'
 import { useState, useEffect } from 'react'
 import Navbar from './navbar';
-import { Link } from 'react-router-dom';
+import { Link,Navigate,useNavigate } from 'react-router-dom';
 
 function ListPro(){
 
     const [listPro, getListPro] = useState([])
+    const navigate = useNavigate()
 
     useEffect(()=>{
         fetchData();
     },[]);
+
+    const goToAddPro = ()=>{
+        navigate('/progetti/add');
+    }
 
     const fetchData = async ()=>{
         try {
@@ -45,12 +50,13 @@ function ListPro(){
                             <td>{pro.nomePro}</td>
                             <td>{pro.cliente}</td>
                             <td>{pro.rifPro}</td>
-                            <td>{pro.dataApPro}</td>
-                            <td>{pro.dataPro}</td>
+                            <td>{pro.dataApPro.split('T')[0]}</td>
+                            <td>{pro.dataPro.split('T')[0]}</td>
                         </tr>
                     ))}
                 </tbody>                
             </table>
+            <button className="btn-add" onClick={goToAddPro}>AGGIUNGI PROGETTO</button>
             </fieldset>  
             </div>
         </>

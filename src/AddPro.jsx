@@ -4,13 +4,13 @@ import Navbar from "./navbar";
 function AddPro(){
 
     const [proForm,setProForm] = useState({
-        nomePro:"Soge inventario",
-        linea:"GT",
-        cliente:"BASKO",
+        nomePro:"",
+        linea:"",
+        cliente:"",
         dataAperturaPro:"",
-        rifPro:"ABCD123",
+        rifPro:"",
         dataPro:"",
-        desc:"inventario cespiti"
+        desc:""
     });
 
     const [proErrors, setProErrors] = useState({

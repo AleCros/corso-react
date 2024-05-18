@@ -66,5 +66,8 @@ fieldset{
 .form-att .row .input-group{
     flex-basis: 48%;
 }
+.form-att .row .btn-group{
+    flex-basis: 33%;
+}
 
 

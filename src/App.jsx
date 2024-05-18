@@ -5,11 +5,11 @@ import Navbar from './navbar';
 function App() {
 
   const [attForm,setAttForm] = useState({
-    tipoAtt: 'formazione',
-    linea: 'simpledo',
-    cliente:'MBDA',
+    tipoAtt: '',
+    linea: '',
+    cliente:'',
     dataInizio: '',
-    note: 'formazione per nuovo utente',
+    note: '',
     progetto: '',
   });
 
@@ -31,15 +31,16 @@ function App() {
   const handleOnSubmit = async (e)=>{
     e.preventDefault();
     let errors = {};
+    let datoMancante = 'inserire dato mancante';
 
     if (!attForm.tipoAtt.trim()) {
-      errors.tipoAtt = 'Tipo Attività Mancante'
+      errors.tipoAtt = datoMancante
     }
     if (!attForm.linea.trim()) {
-      errors.linea = 'Linea Mancante'
+      errors.linea = datoMancante
     }
     if (!attForm.dataInizio) {
-      errors.dataInizio = 'inserire la data di inizio attività'
+      errors.dataInizio = datoMancante
     }
 
     setFormErrors(errors);
@@ -87,7 +88,7 @@ function App() {
                         name = "tipoAtt"                         
                         value={attForm.tipoAtt} 
                         onChange={handleOnChange}
-                        placeholder={formErrors.tipoAtt || 'Aggiungi Attività'}></input>
+                        placeholder={formErrors.tipoAtt || ''}></input>
                         <label htmlFor="tipoAtt"> Tipo Attività</label>
                     </div>
                     <div className="input-group">
@@ -96,7 +97,7 @@ function App() {
                         name = "linea"                         
                         value={attForm.linea} 
                         onChange={handleOnChange}
-                        placeholder={formErrors.linea || 'Aggiungi Linea'}></input>
+                        placeholder={formErrors.linea || ''}></input>
                         <label htmlFor="linea">Linea</label>
                     </div>
                 </div>
@@ -111,14 +112,14 @@ function App() {
                         name = "dataInizio"                         
                         value={attForm.dataInizio} 
                         onChange={handleOnChange}
-                        placeholder={formErrors.dataInizio || 'inserisci data di inizio'}></input>
+                        placeholder={formErrors.dataInizio || ''}></input>
                         <label htmlFor="dataInizio">Data Inizio Attività</label>
                     </div>
                 </div>                    
-                <div className="input-group">
+                {/* <div className="input-group">
                     <input type="text" name = "progetto" value={attForm.progetto} onChange={handleOnChange}></input>
                     <label htmlFor="progetto">Progetto</label>
-                </div>
+                </div> */}
                 <div className="input-group">
                     <textarea name ="note" rows="8" value={attForm.note} onChange={handleOnChange}></textarea>
                     <label htmlFor="note">Note</label>

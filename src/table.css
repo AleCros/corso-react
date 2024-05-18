@@ -30,6 +30,14 @@ td, th {
     text-align: left;            
 }
 
+button{
+    margin-top: 10px;
+    padding: 10px 0;
+    border: 1px solid;
+    width: 100%;
+    cursor: pointer;
+}
+
 
 
 

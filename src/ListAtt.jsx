@@ -1,15 +1,20 @@
 import './table.css'
 import Navbar from './navbar';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 function ListAtt() {
 
     const [listAtt, getListAtt]  =useState([]);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         fetchData();
     },[]);
+
+    const goToApp = ()=>{
+        navigate('/attivita/add');
+    }
 
     const fetchData = async ()=>{
         try {
@@ -44,12 +49,13 @@ function ListAtt() {
                         <td>{att.tipoAtt}</td>
                         <td>{att.nomeClie}</td>
                         <td>{att.progetti.length > 0 ? att.progetti[0].nomePro : '' }</td>
-                        <td>{att.dataInAtt}</td>
+                        <td>{att.dataInAtt.split('T')[0]}</td>
                         <td>8</td>
                         </tr>
                     ))}
                 </tbody>                
             </table>
+            <button type='submit' className="btn-add" onClick={goToApp} >AGGIUNGI ATTIVITA'</button>
         </fieldset>  
     </div>
     </>      

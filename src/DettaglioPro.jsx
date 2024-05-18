@@ -1,26 +1,48 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Navbar from './navbar';
+import { useParams } from 'react-router-dom';
 
 function DettaglioPro(){
 
+    let {id} = useParams()    
+
+    const fetchData = async ()=>{
+        try {
+            const res = await fetch(`http://localhost:3000/progetti/${id}`)
+            const jsonData = await res.json();           
+        if (jsonData) {
+            setProForm(jsonData);
+            console.log('Risposta del server:',jsonData);
+        } else {
+            console.error('Nessun dato trovato');
+        }
+        } catch (error) {
+            console.error('Errore durante il recupero dei dati:', error);
+        }
+    }   
+
     const [proForm,setProForm] = useState({
-        nomePro:"",
-        linea:"",
-        cliente:"",
-        dataAperturaPro:"",
-        rifPro:"",
-        dataPro:"",
-        desc:""
+        nomePro:'',
+        linea:'',
+        cliente:'',
+        dataApPro:'',
+        rifPro:'',
+        dataPro:'',
+        descPro:'',
     });
 
     const [proErrors, setProErrors] = useState({
-        nomePro:"",
-        linea:"",
-        cliente:"",
-        dataAperturaPro:"",
-        rifPro:"",
-        dataPro:""
+        nomePro:'',
+        linea:'',
+        cliente:'',
+        dataApPro:'',
+        rifPro:'',
+        dataPro:''
     })
+
+    useEffect(()=>{       
+        fetchData();      
+    },[id]);
 
     const handleOnChange = (e) =>{
         const {name,value} = e.target;
@@ -30,7 +52,7 @@ function DettaglioPro(){
         });
     };
 
-    const handleOnClick = async(e)=>{
+    const updateProgetto = async(e)=>{
         e.preventDefault();
         let errors={};
         let datoMancante = 'inserire dato mancante';
@@ -38,7 +60,7 @@ function DettaglioPro(){
         if(!proForm.nomePro.trim()){errors.nomePro = datoMancante};
         if(!proForm.linea.trim()){errors.linea = datoMancante};
         if(!proForm.cliente.trim()){errors.cliente = datoMancante};
-        if(!proForm.dataAperturaPro){errors.dataAperturaPro = datoMancante};
+        if(!proForm.dataApPro){errors.dataApPro = datoMancante};
         if(!proForm.rifPro.trim()){errors.rifPro = datoMancante};
         if(!proForm.dataPro){errors.dataPro = datoMancante};              
         
@@ -47,12 +69,12 @@ function DettaglioPro(){
         if (Object.keys(errors).length ===0) {
             let result
             try {
-                  result = await fetch('http://localhost:3000/progetti/',{
-                  method:'POST',
+                  result = await fetch(`http://localhost:3000/progetti/${id}`,{
+                  method:'PATCH',
                   body:JSON.stringify({
                     nomePro : proForm.nomePro,
-                    descPro : proForm.desc,
-                    dataApPro: proForm.dataAperturaPro,
+                    descPro : proForm.descPro,
+                    dataApPro: proForm.dataApPro,
                     rifPro: proForm.rifPro,
                     dataPro: proForm.dataPro,
                     cliente: proForm.cliente,
@@ -71,6 +93,12 @@ function DettaglioPro(){
                 console.error(error);                
             }            
         }
+    }
+    const newAttivita = async (e)=>{
+        // TODO: sviluppare funzione per creare attività da progetto
+    }
+    const closeProgetto = async (e)=>{
+        // TODO: sviluppare funzione per chiudere progetto
     }
 
     return(
@@ -106,8 +134,8 @@ function DettaglioPro(){
                         <label htmlFor="cliente">Cliente</label>
                     </div>
                     <div className="input-group">
-                        <input type="date" name = "dataAperturaPro" value={proForm.dataAperturaPro} onChange={handleOnChange}></input>
-                        <label htmlFor="dataAperturaPro">Data apertura Progetto</label>
+                        <input type="date" name = "dataApPro" value={proForm.dataApPro.split('T')[0]} onChange={handleOnChange}></input>
+                        <label htmlFor="dataApPro">Data apertura Progetto</label>
                     </div>
                 </div>                    
                 <div className="row">
@@ -116,15 +144,25 @@ function DettaglioPro(){
                         <label htmlFor="rifPro">Riferimento Progetto</label>
                     </div>
                     <div className="input-group">
-                        <input type="date" name = "dataPro" value={proForm.dataPro} onChange={handleOnChange}></input>
+                        <input type="date" name = "dataPro" value={proForm.dataPro.split('T')[0]} onChange={handleOnChange}></input>
                         <label htmlFor="dataPro">Data Progetto</label>
                     </div>
                 </div>
                 <div className="input-group">
-                    <textarea name ="desc" rows="8" value={proForm.desc} onChange={handleOnChange}></textarea>
-                    <label htmlFor="desc">Descrizione</label>
+                    <textarea name ="descPro" rows="8" value={proForm.descPro} onChange={handleOnChange}></textarea>
+                    <label htmlFor="descPro">Descrizione</label>
+                </div>                
+                <div className="row">
+                        <div className="btn-group">
+                        <button type="submit" className="btn-add" onClick={updateProgetto}>MODIFICA PROGETTO</button>
+                        </div>
+                        <div className="btn-group">
+                        <button type="submit" className="btn-add" onClick={newAttivita}>CREA ATTIVITA</button>
+                        </div>
+                        <div className="btn-group">
+                        <button type="submit" className="btn-add" onClick={closeProgetto}>CHIUDI PROGETTO</button>
+                        </div>
                 </div>
-                <button type="submit" className="btn-add" onClick={handleOnClick}>SUBMIT</button>
             </fieldset>            
             </form>
         </div>
