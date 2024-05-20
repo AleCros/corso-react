@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from './navbar';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
+
 
 function DettaglioAtt(){
 
@@ -30,11 +31,13 @@ function DettaglioAtt(){
         progetti: '',
       });
     
-       const [formErrors,setFormErrors] = useState({
+    const [formErrors,setFormErrors] = useState({
          tipoAtt: '',
          linea: '',    
          dataInAtt: ''  
-        })        
+      });
+      
+    const navigate = useNavigate();
     
       const handleOnChange = (e)=>{
         const {name, value} = e.target;
@@ -89,8 +92,8 @@ function DettaglioAtt(){
         } 
          
       }
-      const addOre = async (e)=>{
-        // TODO: creare funzione aggiungi ore ad Attività
+      const addOre = async ()=>{        
+        navigate(`/attivita/ore/${id}`);
       }
       const closeAtt = async (e)=>{
         // TODO: crare funzione per chiudere l'attività

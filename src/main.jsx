@@ -8,6 +8,7 @@ import AddPro from './AddPro.jsx'
 import ListPro from './ListPro.jsx'
 import DettaglioAtt from './DettaglioAtt.jsx'
 import DettaglioPro from './DettaglioPro.jsx'
+import AddOre from './AddOre.jsx'
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path:'/progetti/:id',
     element:<DettaglioPro></DettaglioPro>
+  },
+  {
+    path:'/attivita/ore/:id',
+    element:<AddOre></AddOre>
   }
 ])
 
