@@ -1,10 +1,16 @@
 import Navbar from "./navbar";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 function AddOre() {
 
     let {id} = useParams();
+
+    const [listaOre, setListaOre] = useState([]);
+
+    useEffect(()=>{
+        fetchData();
+    },[]) 
 
     const [oreForm, setOreForm] = useState({
         dataOra : '',
@@ -16,6 +22,16 @@ function AddOre() {
         dataOra : '',
         ora: ''
     });
+
+    const fetchData = useCallback (async ()=>{
+        // TODO: Sviluppare la funzione per popolare la tabellina delle ore
+        try {
+            
+
+        } catch (error) {
+            
+        }
+    })
 
     const handleOnChange = (e) =>{
         const {name,value} = e.target;
@@ -109,22 +125,22 @@ function AddOre() {
                         <textarea name ="nota" rows="5" value={oreForm.nota} onChange={handleOnChange}></textarea>
                         <label htmlFor="nota">Note</label>
                     </div>
-                    <div className='div-table'style={{height:'1px'}}> 
-                        <table>                            
-                            <tbody>
-                                {/* {listAtt.map((att,index)=>(                        
-                                    <tr key={index}>
-                                    <td><Link className='row-link' to={`/attivita/${att._id}`}></Link></td>
-                                    <td>{att.tipoAtt}</td>
-                                    <td>{att.nomeClie}</td>
-                                    <td>{att.progetti.length > 0 ? att.progetti[0].nomePro : '' }</td>
-                                    <td>{att.dataInAtt.split('T')[0]}</td>
-                                    <td>8</td>
-                                    </tr>
-                                ))} */}
-                            </tbody>                
-                        </table>
-                    </div>
+                    { listaOre.length > 0 && (
+                        <div className='div-table'style={{height:'1px'}}> 
+                            <table>                            
+                                <tbody>
+                                    {listaOre.map((att,index)=>(                        
+                                        <tr key={index}>
+                                        <td><Link className='row-link' to={`/oreAtt/${att._id}`}></Link></td>
+                                        <td>{att.dataOre.split('T')[0]}</td>
+                                        <td>{att.ora}</td>                                    
+                                        <td>{att.nota}</td>                                    
+                                        </tr>
+                                    ))}
+                                </tbody>                
+                            </table>
+                        </div>
+                    )}                    
                     <button className="btn-add" onClick={aggiungiOra}>AGGIUNGI ORA</button>
                 </fieldset>            
             </form>
